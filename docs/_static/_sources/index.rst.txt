@@ -1,5 +1,26 @@
+.. Args Enum documentation master file, created by
+   sphinx-quickstart on Sun Oct  2 06:42:01 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
 Args Enum
 =========
+
+Use the standard ``enum.Enum`` class to organize your program's CLI parameters.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+Quick Start
+===========
 
 Create groups of arguments as ``Enum`` classes, and single options
 as instances of the provided ``Actions`` class:
@@ -43,3 +64,4 @@ The above code will produce a group called ``py`` and
 exposes the option ``--py-version`` in the command line.
 To retrieve the value in your program, access the
 ``PY_VERSION`` member of the relevant Namespace.
+

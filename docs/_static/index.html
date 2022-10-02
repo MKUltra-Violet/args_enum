@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Args Enum &#8212; Args Enum 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="args-enum">
+<h1>Args Enum<a class="headerlink" href="#args-enum" title="Permalink to this heading">¶</a></h1>
+<p>Use the standard <code class="docutils literal notranslate"><span class="pre">enum.Enum</span></code> class to organize your program’s CLI parameters.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+<section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">¶</a></h1>
+<p>Create groups of arguments as <code class="docutils literal notranslate"><span class="pre">Enum</span></code> classes, and single options
+as instances of the provided <code class="docutils literal notranslate"><span class="pre">Actions</span></code> class:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Parser(*Group(s),</span> <span class="pre">**Actions)</span> <span class="pre">-&gt;</span> <span class="pre">ArgumentParser</span></code></div>
+</div>
+</div></blockquote>
+<p>A minimal example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">args_enum</span> <span class="k">as</span> <span class="nn">aenm</span>
+
+<span class="n">AppParser</span> <span class="o">=</span> <span class="n">aenm</span><span class="o">.</span><span class="n">Parser</span><span class="p">(</span>
+    <span class="n">aenm</span><span class="o">.</span><span class="n">Log</span><span class="p">,</span>
+    <span class="n">QUIET</span> <span class="o">=</span> <span class="n">aenm</span><span class="o">.</span><span class="n">Flag</span><span class="o">.</span><span class="n">TRUE</span><span class="p">(</span><span class="s2">&quot;log level &#39;WARNING&#39;&quot;</span><span class="p">),</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="n">aenm</span><span class="o">.</span><span class="n">Flag</span><span class="o">.</span><span class="n">TRUE</span><span class="p">(</span><span class="s2">&quot;log level &#39;DEBUG&#39;&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">AppParser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code above will produce the following <code class="docutils literal notranslate"><span class="pre">--help</span></code> output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">your_program</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">quiet</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">debug</span><span class="p">]</span>
+            <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">level</span> <span class="p">{</span><span class="n">NOTSET</span><span class="p">,</span><span class="n">TRACE</span><span class="p">,</span><span class="n">DEBUG</span><span class="p">,</span><span class="n">INFO</span><span class="p">,</span><span class="n">WARNING</span><span class="p">}]</span>
+            <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="nb">dir</span> <span class="n">LOG_DIR</span><span class="p">]</span>
+
+<span class="n">options</span><span class="p">:</span>
+<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+<span class="o">--</span><span class="n">quiet</span>               <span class="n">log</span> <span class="n">level</span> <span class="s1">&#39;WARNING&#39;</span>
+<span class="o">--</span><span class="n">debug</span>               <span class="n">log</span> <span class="n">level</span> <span class="s1">&#39;DEBUG&#39;</span>
+
+<span class="n">log</span><span class="p">:</span>
+<span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">level</span> <span class="p">{</span><span class="n">NOTSET</span><span class="p">,</span><span class="n">TRACE</span><span class="p">,</span><span class="n">DEBUG</span><span class="p">,</span><span class="n">INFO</span><span class="p">,</span><span class="n">WARNING</span><span class="p">}</span>
+                        <span class="n">Program</span> <span class="n">logger</span> <span class="n">output</span> <span class="n">verbosity</span>
+<span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="nb">dir</span> <span class="n">LOG_DIR</span>     <span class="n">Destination</span> <span class="n">directory</span> <span class="k">for</span> <span class="n">log</span> <span class="n">files</span>
+</pre></div>
+</div>
+<p>New groups are created by sub-classing <code class="docutils literal notranslate"><span class="pre">Group</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Py</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+    <span class="n">VERSION</span> <span class="o">=</span> <span class="n">Flag</span><span class="o">.</span><span class="n">TRUE</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above code will produce a group called <code class="docutils literal notranslate"><span class="pre">py</span></code> and
+exposes the option <code class="docutils literal notranslate"><span class="pre">--py-version</span></code> in the command line.
+To retrieve the value in your program, access the
+<code class="docutils literal notranslate"><span class="pre">PY_VERSION</span></code> member of the relevant Namespace.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Args Enum</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Alex Haw.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
